@@ -1,0 +1,33 @@
+// VerilogA for VerilogAmsLib, dac_16bit_ideal, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define NUM_DAC_BITS 16
+
+module dac_16bit_ideal(in, out);
+input [`NUM_DAC_BITS-1:0] in;
+output out;
+
+electrical in, clk, out[`NUM_DAC_BITS-1:0];
+
+parameter real vref  = 1 from [0:inf);
+parameter real trise = 0 from [0:inf);
+parameter real tfall = 0 from [0:inf);
+parameter real tdel  = 0 from [0:inf);
+parameter real vtrans  = 2.5;
+
+real out_scaled; // output scaled as fraction of 256
+genvar i;
+
+analog begin
+	out_scaled = 0;
+	for (i = 0; i < `NUM_DAC_BITS; i = i + 1) begin
+		out_scaled = out_scaled + ((V(vin[i]) > vtrans)? (1 << i): 0);
+	end
+	V(vout) <+ transition(vref*out_scaled/(1 << `NUM_DAC_BITS), tdel, trise, tfall);
+end
+
+endmodule
+
+`undef NUM_DAC_BITS

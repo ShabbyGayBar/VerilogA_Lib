@@ -7,7 +7,9 @@ This repository contains a collection of Verilog-AMS models for various electron
 - `dff_rsn`: A D flip-flop with reset and set functionality.
 - `comparator_dynamic`: A dynamic comparator model.
 - `tah_ideal`: An ideal track and hold model.
-- 
+- `adc_16bit_ideal`: An ideal 16-bit analog-to-digital converter.
+- `dac_16bit_ideal`: An ideal 16-bit digital-to-analog converter.
+
 ## License
 
 This mod is under [MIT LICENSE](LICENSE).
