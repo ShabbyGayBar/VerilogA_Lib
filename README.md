@@ -9,6 +9,7 @@ This repository contains a collection of Verilog-AMS models for various electron
 - `tah_ideal`: An ideal track and hold model.
 - `adc_16bit_ideal`: An ideal 16-bit analog-to-digital converter.
 - `dac_16bit_ideal`: An ideal 16-bit digital-to-analog converter.
+- `vcdl`: A voltage-controlled delay line model.
 
 ## License
 

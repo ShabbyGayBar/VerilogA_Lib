@@ -1,0 +1,23 @@
+// VerilogA for VerilogAmsLib, vcdl, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module vcdl(ctrl, in, out);
+input ctrl, in;
+output out;
+
+electrical in, ctrl, out;
+
+parameter real tdel_nominal  = 1n from (0:inf);
+parameter real Kvcdl = 100n from (0:inf);
+parameter real max_delay = 10u from (0:inf);
+
+real tdel;
+
+analog begin
+	tdel = tdel_nominal + Kvcdl * V(vctrl);
+	V(vout) <+ absdelay(V(vin), tdel, max_delay);
+end
+
+endmodule
