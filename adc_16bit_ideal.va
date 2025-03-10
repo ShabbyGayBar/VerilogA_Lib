@@ -28,8 +28,8 @@ analog begin
 		halfref = vref / 2;
 	end
 
-	@(cross(V(vclk) - vtrans_clk, 1)) begin
-		unconverted = V(vin);
+	@(cross(V(clk) - vtrans_clk, 1)) begin
+		unconverted = V(in);
 		for (i = (`NUM_ADC_BITS-1); i >= 0 ; i = i - 1) begin
 			out_val[i] = 0;
 			if (unconverted > halfref) begin
