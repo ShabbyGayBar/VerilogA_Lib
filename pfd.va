@@ -1,0 +1,39 @@
+// VerilogA for VerilogAmsLib, pfd, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module pfd(ref, fb, up, down);
+input ref, fb;
+output up, down;
+
+electrical ref, fb, up, down, rst;
+
+parameter real vlogic_high = 5;
+parameter real vtrans = 2.5;
+parameter real tdel = 30p from [0:inf);
+parameter real trise = 30p from (0:inf);
+parameter real tfall = 30p from (0:inf);
+
+integer up_val, down_val, rst_val;
+
+analog begin
+	@(cross(V(ref) - vtrans, 1)) begin
+		up_val = 1;
+	end
+	@(cross(V(fb) - vtrans, 1)) begin
+		down_val = 1;
+	end
+	@(cross(V(rst) - vtrans, 1)) begin
+		up_val = 0;
+		down_val = 0;
+	end
+
+	rst_val = up_val && down_val;
+	
+	V(rst) <+ transition(rst_val * vlogic_high, tdel, trise, tfall);
+	V(up) <+ transition(up_val * vlogic_high, tdel, trise, tfall);
+	V(down) <+ transition(down_val * vlogic_high, tdel, trise, tfall);
+end
+
+endmodule
