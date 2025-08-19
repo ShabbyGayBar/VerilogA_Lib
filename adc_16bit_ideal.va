@@ -20,8 +20,7 @@ parameter real vtrans_clk = 2.5;
 parameter real vref = 1.0;
 
 real unconverted, halfref, out_val[0:`NUM_ADC_BITS-1];
-integer i;
-genvar j;
+integer i, j, digital;
 
 analog begin
 	@(initial_step) begin
@@ -29,16 +28,12 @@ analog begin
 	end
 
 	@(cross(V(clk) - vtrans_clk, 1)) begin
-		unconverted = V(in);
-		for (i = (`NUM_ADC_BITS-1); i >= 0 ; i = i - 1) begin
-			out_val[i] = 0;
-			if (unconverted > halfref) begin
+        digital = integer((V(in) / vref) * (1 << `NUM_ADC_BITS));
+        for (i = 0; i < `NUM_ADC_BITS; i = i + 1) begin
+            if ((digital >> i) & 1)
 				out_val[i] = vlogic_high; 
-				unconverted = unconverted - halfref;
-			end else begin
-				out_val[i] = vlogic_low;
-			end
-			unconverted = unconverted * 2;
+            else
+                out_val[i] = vlogic_low;
 		end
 	end
 
