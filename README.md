@@ -98,7 +98,11 @@ This repository contains a collection of Verilog-AMS models for various electron
   - `trise`, `tfall`: Output rise/fall times (default: 1u)
 
 ### 7. `ohmmeter`
-- **Function:** Measures resistance and conductance of a device under test (DUT).
+- **Function:** Measures resistance and conductance of a device under test (DUT). The DUT should be connected as follows:
+  - Connect the DUT's positive terminal to `dutp`
+  - Break the connection between the DUT's negative terminal and the rest of the circuit
+  - Connect the DUT's negative terminal to `iprobe`
+  - Connect the rest of the circuit to `dutm`
 - **Inputs:**
   - `dutp`, `iprobe`: DUT voltage and current probe
 - **Outputs:**
