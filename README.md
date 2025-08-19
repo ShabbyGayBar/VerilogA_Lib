@@ -11,7 +11,6 @@ This repository contains a collection of Verilog-AMS models for various electron
 - `dac_16bit_ideal`: An ideal 16-bit digital-to-analog converter.
 - `ohmmeter`: An ohmmeter model.
 - `pfd`: A phase frequency detector model.
-- `vcdl`: A voltage-controlled delay line model.
 
 ## License
 
