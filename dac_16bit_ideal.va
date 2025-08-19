@@ -11,9 +11,9 @@ output out;
 
 electrical in[`NUM_DAC_BITS-1:0], out;
 
-parameter real vref  = 1 from [0:inf);
-parameter real trise = 0 from [0:inf);
-parameter real tfall = 0 from [0:inf);
+parameter real vref  = 1 from (0:inf);
+parameter real trise = 0 from (0:inf);
+parameter real tfall = 0 from (0:inf);
 parameter real tdel  = 0 from [0:inf);
 parameter real vtrans  = 2.5;
 

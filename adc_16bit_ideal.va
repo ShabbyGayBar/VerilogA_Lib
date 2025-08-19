@@ -11,8 +11,8 @@ output [`NUM_ADC_BITS-1:0] out;
 
 electrical in, clk, out[`NUM_ADC_BITS-1:0];
 
-parameter real trise = 0 from [0:inf);
-parameter real tfall = 0 from [0:inf);
+parameter real trise = 0 from (0:inf);
+parameter real tfall = 0 from (0:inf);
 parameter real tdel = 0 from [0:inf);
 parameter real vlogic_high = 5;
 parameter real vlogic_low = 0;
