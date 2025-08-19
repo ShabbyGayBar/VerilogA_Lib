@@ -12,13 +12,13 @@ output out;
 electrical in[`NUM_DAC_BITS-1:0], out;
 
 parameter real vref  = 1 from (0:inf);
-parameter real trise = 0 from (0:inf);
-parameter real tfall = 0 from (0:inf);
-parameter real tdel  = 0 from [0:inf);
 parameter real vtrans  = 2.5;
+parameter real tdel  = 3u from [0:inf);
+parameter real trise = 1u from (0:inf);
+parameter real tfall = 1u from (0:inf);
 
 real out_scaled; // output scaled as fraction of 256
-genvar i;
+integer i;
 
 analog begin
 	out_scaled = 0;

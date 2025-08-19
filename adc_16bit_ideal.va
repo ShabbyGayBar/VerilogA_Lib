@@ -11,13 +11,13 @@ output [`NUM_ADC_BITS-1:0] out;
 
 electrical in, clk, out[`NUM_ADC_BITS-1:0];
 
-parameter real trise = 0 from (0:inf);
-parameter real tfall = 0 from (0:inf);
-parameter real tdel = 0 from [0:inf);
+parameter real vref = 1.0;
 parameter real vlogic_high = 5;
 parameter real vlogic_low = 0;
 parameter real vtrans_clk = 2.5;
-parameter real vref = 1.0;
+parameter real tdel = 3u from [0:inf);
+parameter real trise = 1u from (0:inf);
+parameter real tfall = 1u from (0:inf);
 
 real unconverted, halfref, out_val[0:`NUM_ADC_BITS-1];
 integer i, j, digital;
@@ -31,11 +31,11 @@ analog begin
         digital = integer((V(in) / vref) * (1 << `NUM_ADC_BITS));
         for (i = 0; i < `NUM_ADC_BITS; i = i + 1) begin
             if ((digital >> i) & 1)
-				out_val[i] = vlogic_high; 
+                out_val[i] = vlogic_high;
             else
                 out_val[i] = vlogic_low;
-		end
-	end
+        end
+    end
 
 	for (j = 0; j < `NUM_ADC_BITS; j = j + 1) begin // assign the outputs
 		V(out[j]) <+ transition(out_val[j], tdel, trise, tfall);

@@ -11,7 +11,7 @@ inout out;
 electrical clk, in, out;
 
 parameter real ron = 25;
-parameter real vtrans = 1.65;
+parameter real vtrans_clk = 2.5;
 
 real iout;
 genvar i;
@@ -21,11 +21,11 @@ analog begin
 		iout = 0;
 	end
 
-	@(cross(V(clk) - vtrans, 1)) begin
+	@(cross(V(clk) - vtrans_clk, 1)) begin
 		iout = 0;
 	end
 
-	if (V(clk) < vtrans) begin
+	if (V(clk) < vtrans_clk) begin
 		iout = V(out,in)/ron;
 	end
 

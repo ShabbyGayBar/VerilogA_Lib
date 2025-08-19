@@ -14,17 +14,16 @@ electrical clk, rst, inp, inm, done, outp, outm, clk_d, outp_pre, outm_pre;
 
 parameter real tamp = 10u; // Amplification time
 parameter real gain = 8; // Gain
-parameter real vcm = 1.65; // Common mode output voltage
+parameter real vcm = 2.5; // Common mode output voltage
 parameter real offset = 0; // Input referred offset
-parameter real vlogic_high = 3.3;
-parameter real vtrans = 1.65;
+parameter real vlogic_high = 5;
+parameter real vtrans = 2.5;
 parameter real tdel = 3u from [0:inf);
 parameter real trise = 1u from (0:inf);
 parameter real tfall = 1u from (0:inf);
 
 real outDiff, gain, outp_val, outm_val;
-integer done_val;
-genvar i;
+integer i, done_val;
 
 analog begin
 	@(initial_step) begin

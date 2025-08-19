@@ -11,9 +11,9 @@ electrical ref, fb, up, down, rst;
 
 parameter real vlogic_high = 5;
 parameter real vtrans = 2.5;
-parameter real tdel = 30p from [0:inf);
-parameter real trise = 30p from (0:inf);
-parameter real tfall = 30p from (0:inf);
+parameter real tdel = 3u from [0:inf);
+parameter real trise = 1u from (0:inf);
+parameter real tfall = 1u from (0:inf);
 
 integer up_val, down_val, rst_val;
 
