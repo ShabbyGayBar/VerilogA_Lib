@@ -1,0 +1,34 @@
+// VerilogA for VerilogAmsLib, ctle, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module ctle(in, out);
+    input  in;
+    output out;
+    electrical in, out;
+
+    parameter real fz   = 1.0e3 from (0:inf); // zero frequency [Hz]
+    parameter real fp1  = 1.0e4 from (0:inf); // pole #1 frequency [Hz]
+    parameter real fp2  = 1.0e5 from (0:inf); // pole #2 frequency [Hz]
+
+    // Internal rad/s conversions
+    real wz[1:0], wp[3:0];
+
+    analog begin
+        // Convert to rad/s (Spectre/Verilog-A laplace_* expect rad/s locations)
+        wz[1] = -`M_TWO_PI * fz;
+        wz[0] = 0;
+        wp[3] = -`M_TWO_PI * fp1;
+        wp[2] = 0;
+        wp[1] = -`M_TWO_PI * fp2;
+        wp[0] = 0;
+
+        // Voltage-controlled voltage source with Laplace TF:
+        // V(out) <- gain * (s/wz + 1) / [(s/wp1 + 1)*(s/wp2 + 1)] * V(in)
+        V(out) <+ gain * laplace_zp( V(in),
+                                     wz,   // zeros
+                                     wp ); // poles
+
+    end
+endmodule
